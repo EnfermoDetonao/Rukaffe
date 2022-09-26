@@ -14,6 +14,18 @@
         android:theme="@style/Theme.Rukaffe"
         tools:targetApi="31">
         <activity
+            android:name=".IngresoProductos"
+            android:exported="false" />
+        <activity
+            android:name=".Inventario"
+            android:exported="false" />
+        <activity
+            android:name=".RecepcionPedido"
+            android:exported="false" />
+        <activity
+            android:name=".IngresoPedido"
+            android:exported="false" />
+        <activity
             android:name=".MainMenu"
             android:exported="false" />
         <activity
