@@ -4,13 +4,12 @@ import java.util.Date;
 
 public class Inventory {
 
-
     private int id;
     private String name;
     private final int cantidad;
     private Date fecha;
 
-    public Inventory(int id, String name, int cantidad, Date fecha) {
+    public Inventory(int id, String name, int cantidad, String fecha) {
         this.id = id;
         this.name = name;
         this.cantidad = cantidad;
@@ -37,7 +36,7 @@ public class Inventory {
         return cantidad;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 

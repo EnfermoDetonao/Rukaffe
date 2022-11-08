@@ -1,63 +1,57 @@
 package Database;
 
-import static Util.Constants.*;
-
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.content.Context;
 
-import Models.Inventory;
-import Util.MyApp;
+import java.util.logging.Logger;
+
+import Util.Constants;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "inventory-db";
-    private static final int DATABASE_VERSION = 1;
-
     private static DatabaseHelper databaseHelper;
 
-    private DatabaseHelper() {
-        super(MyApp.context, DATABASE_NAME, null, DATABASE_VERSION);
+    // All Static variables
+    private static final int DATABASE_VERSION = 1;
+
+    // Database Name
+    private static final String DATABASE_NAME = Constants.DATABASE_NAME;
+
+    // Constructor
+    private DatabaseHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    public static DatabaseHelper getInstance() {
-
+    public static synchronized DatabaseHelper getInstance(Context context) {
         if (databaseHelper == null) {
-            synchronized (DatabaseHelper.class){ //thread safe singleton
-                if (databaseHelper == null)
-                    databaseHelper = new DatabaseHelper();
-            }
+            databaseHelper = new DatabaseHelper(context);
         }
-
         return databaseHelper;
     }
 
     @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+    public void onCreate(SQLiteDatabase db) {
 
-        String CREATE_STUDENT_TABLE = "CREATE TABLE " + TABLE_INVENTORY + "("
-                + INVENTORY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + INVENTORY_NAME + " TEXT NOT NULL, "
-                + INVENTORY_CANTIDAD + " INTEGER NOT NULL,"
-                + INVENTORY_FECHA + " DATE NOT NULL"
+        // Create tables SQL execution
+        String CREATE_STUDENT_TABLE = "CREATE TABLE " + Constants.TABLE_INVENTORY + "("
+                + Constants.INVENTORY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + Constants.INVENTORY_NAME + " TEXT NOT NULL, "
+                + Constants.INVENTORY_CANTIDAD + " INTEGER NOT NULL, "
+                + Constants.INVENTORY_FECHA+ " String NOT NULL "
                 + ")";
 
-        sqLiteDatabase.execSQL(CREATE_STUDENT_TABLE);
+        db.execSQL(CREATE_STUDENT_TABLE);
+
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if existed
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_INVENTORY);
+        db.execSQL("DROP TABLE IF EXISTS " + Constants.TABLE_INVENTORY);
 
         // Create tables again
-        onCreate(sqLiteDatabase);
+        onCreate(db);
     }
 
-    @Override
-    public void onOpen(SQLiteDatabase db) {
-        super.onOpen(db);
-
-        //enable foreign key constraints like ON UPDATE CASCADE, ON DELETE CASCADE
-        db.execSQL("PRAGMA foreign_keys=ON;");
-    }
 }

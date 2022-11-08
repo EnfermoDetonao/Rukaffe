@@ -8,6 +8,8 @@ import android.view.View;
 
 public class IngresoProductos extends AppCompatActivity {
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -16,5 +18,8 @@ public class IngresoProductos extends AppCompatActivity {
     public void onClickRegresoaMain(View view) {
         Intent i = new Intent(IngresoProductos.this, Inventario.class);
         startActivity(i);
+
+        //obtener desde xml los campos
+        //
     }
 }
