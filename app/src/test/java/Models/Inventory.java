@@ -1,13 +1,11 @@
 package Models;
 
-import java.util.Date;
-
 public class Inventory {
 
     private int id;
     private String name;
     private final int cantidad;
-    private Date fecha;
+    private String fecha;
 
     public Inventory(int id, String name, int cantidad, String fecha) {
         this.id = id;
@@ -40,7 +38,7 @@ public class Inventory {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 }

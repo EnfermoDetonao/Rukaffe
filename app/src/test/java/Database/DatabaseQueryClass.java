@@ -10,7 +10,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Logger;
 
 import Models.Inventory;
 import Util.Constants;
@@ -23,7 +22,7 @@ public class DatabaseQueryClass {
             this.context = context;
         }
 
-        public long insertStudent(Inventory inventory){
+        public long insertInventory(Inventory inventory){
 
             long id = -1;
             DatabaseHelper databaseHelper = DatabaseHelper.getInstance(context);
@@ -127,7 +126,7 @@ public class DatabaseQueryClass {
             return deletedRowCount;
         }
 
-        public boolean deleteAllStudents(){
+        public boolean deleteInventory(){
             boolean deleteStatus = false;
             DatabaseHelper databaseHelper = DatabaseHelper.getInstance(context);
             SQLiteDatabase sqLiteDatabase = databaseHelper.getWritableDatabase();
@@ -150,4 +149,3 @@ public class DatabaseQueryClass {
             return deleteStatus;
         }
     }
-
