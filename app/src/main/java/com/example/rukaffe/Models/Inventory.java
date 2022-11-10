@@ -1,10 +1,10 @@
-package Models;
+package com.example.rukaffe.Models;
 
 public class Inventory {
 
     private int id;
     private String name;
-    private final int cantidad;
+    private int cantidad;
     private String fecha;
 
     public Inventory(int id, String name, int cantidad, String fecha) {
@@ -13,6 +13,7 @@ public class Inventory {
         this.cantidad = cantidad;
         this.fecha = fecha;
     }
+    public Inventory() {}
 
     public int getId() {
         return id;
@@ -33,6 +34,8 @@ public class Inventory {
     public int getCantidad() {
         return cantidad;
     }
+
+    public void setCantidad(Integer cantidad){ this.cantidad = cantidad;}
 
     public String getFecha() {
         return fecha;

@@ -1,4 +1,4 @@
-package Models;
+package com.example.rukaffe.Models;
 
 public class TableRowCount {
     private long InventoryRow;

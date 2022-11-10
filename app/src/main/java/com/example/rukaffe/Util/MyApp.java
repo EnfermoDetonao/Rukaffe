@@ -1,4 +1,4 @@
-package Util;
+package com.example.rukaffe.Util;
 
 import android.app.Application;
 import android.content.Context;
