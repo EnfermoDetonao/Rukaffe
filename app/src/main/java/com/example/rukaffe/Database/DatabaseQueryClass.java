@@ -6,7 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.widget.Toast;
 
-import com.example.rukaffe.Models.Inventory;
 import com.example.rukaffe.Util.Constants;
 
 public class DatabaseQueryClass {
@@ -17,7 +16,7 @@ public class DatabaseQueryClass {
         this.context = context;
     }
 
-    public String insertarProducto(Inventory u){
+    public String insertarProducto(){
         String nombreProducto=u.getName();
         DatabaseHelper databaseHelper = DatabaseHelper.getInstance(context);
         SQLiteDatabase sqLiteDatabase = databaseHelper.getWritableDatabase();
