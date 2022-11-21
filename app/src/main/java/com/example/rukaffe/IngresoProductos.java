@@ -3,19 +3,14 @@ package com.example.rukaffe;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
 import com.example.rukaffe.Database.DatabaseQueryClass;
 import com.example.rukaffe.Models.Inventory;
-
 import java.util.ArrayList;
-import java.util.List;
-
 
 public class IngresoProductos extends AppCompatActivity {
 
