@@ -38,63 +38,42 @@ public class IngresoProductos extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingreso_productos);
+
         name = this.findViewById(R.id.editTextNombre);
-        cantidad= this.findViewById(R.id.editTextCantidad);
-        date= this.findViewById(R.id.editTextDate);
-        agregarBtn=this.findViewById(R.id.button10);
-        this.obtenerListaInventario();
+        cantidad = this.findViewById(R.id.editTextCantidad);
+        date = this.findViewById(R.id.editTextDate);
+        agregarBtn = this.findViewById(R.id.button10);
 
+        this.obtenerListaProductos();
 
-        agregarBtn.setOnClickListener(new View.OnClickListener(){
+        agregarBtn.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View view){
+            @Override
+            public void onClick(View view) {
 
-                Inventory productoNuevo= new Inventory();
+                Inventory productoNuevo = new Inventory();
+
                 productoNuevo.setName(name.getText().toString());
-                productoNuevo.setCantidad(Integer.valueOf(cantidad.getText().toString()));
+                productoNuevo.setCantidad(cantidad.getText().toString());
                 productoNuevo.setFecha(date.getText().toString());
 
-                DatabaseQueryClass dbQueryClass = new DatabaseQueryClass(getBaseContext());
+                DatabaseQueryClass dbdbQeryProducto = new DatabaseQueryClass(getBaseContext());
+                dbdbQeryProducto.insertarProducto(productoNuevo);
 
-                dbQueryClass.insertarProducto();
+                Intent i = new Intent(IngresoProductos.this,Inventario.class);
+                startActivity(i);
+
             }
         });
+
     }
 
-    public List<Inventory> obtenerListaInventario(){
+    public void obtenerListaProductos(){
+        DatabaseQueryClass dbQeryProducto1 = new DatabaseQueryClass(getBaseContext());
 
-        DatabaseQueryClass dbQeryInventario1 = new DatabaseQueryClass(getBaseContext());
-        DatabaseHelper databaseHelper = DatabaseHelper.getInstance(context);
-        SQLiteDatabase sqLiteDatabase = databaseHelper.getReadableDatabase();
-        Cursor cursor=null;
-        try{
-            cursor=  sqLiteDatabase.query(Constants.TABLE_INVENTORY,null,null,null,null,null,null,null);
-            if(cursor!=null)
-                if(cursor.moveToFirst()){
-                    List<Inventory> listaObtenida= new ArrayList<>();
-                    do{
-                        Inventory productoObtenido=new Inventory();
-                        //obtengo valores de la BD
-                        String name = cursor.getString(cursor.getColumnIndex(Constants.INVENTORY_NAME));
-                        int cantidad = cursor.getInt(cursor.getColumnIndex(Constants.INVENTORY_CANTIDAD));
-                        String fecha = cursor.getString(cursor.getColumnIndex(Constants.INVENTORY_FECHA));
-                        //se los asigno al usuario
-                        productoObtenido.setName(name);
-                        productoObtenido.setCantidad(cantidad);
-                        productoObtenido.setFecha(fecha);
-                        //agrego el usuario a la lista
-                        listaObtenida.add(productoObtenido);
+        listaDatos=dbQeryProducto1.obtenerProducto();
+        Adaptador adapter = new Adaptador(listaDatos);
 
-                    }while(cursor.moveToNext());
-                    return listaObtenida;
-                }
-        }
-        catch(SQLiteException e){
-            Toast.makeText(context, "Error al listar: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-        }finally {
-            sqLiteDatabase.close();
-        }
-        return new ArrayList<Inventory>();
     }
 
 }

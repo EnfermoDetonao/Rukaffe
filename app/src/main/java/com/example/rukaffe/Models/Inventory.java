@@ -4,10 +4,10 @@ public class Inventory {
 
     private int id;
     private String name;
-    private int cantidad;
+    private String cantidad;
     private String fecha;
 
-    public Inventory(int id, String name, int cantidad, String fecha) {
+    public Inventory(int id, String name, String cantidad, String fecha) {
         this.id = id;
         this.name = name;
         this.cantidad = cantidad;
@@ -31,17 +31,19 @@ public class Inventory {
         this.name = name;
     }
 
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(Integer cantidad){ this.cantidad = cantidad;}
-
     public String getFecha() {
         return fecha;
     }
 
     public void setFecha(String fecha) {
         this.fecha = fecha;
+    }
+
+    public String getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(String cantidad) {
+        this.cantidad = cantidad;
     }
 }

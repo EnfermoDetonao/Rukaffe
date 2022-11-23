@@ -11,7 +11,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static DatabaseHelper databaseHelper;
 
     // All Static variables
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 1;
 
     // Database Name
     private static final String DATABASE_NAME = Constants.DATABASE_NAME;
@@ -33,7 +33,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // Create tables SQL execution
         String CREATE_INVENTORY_TABLE = "CREATE TABLE " + Constants.TABLE_INVENTORY + "("
-                + Constants.INVENTORY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + Constants.INVENTORY_NAME + " TEXT NOT NULL, "
                 + Constants.INVENTORY_CANTIDAD + " INTEGER NOT NULL, "
                 + Constants.INVENTORY_FECHA+ " TEXT NOT NULL "

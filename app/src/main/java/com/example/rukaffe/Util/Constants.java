@@ -2,7 +2,7 @@ package com.example.rukaffe.Util;
 
 public class Constants {
 
-    //column names of student table
+    //column names of Inventory table
     public static final String DATABASE_NAME = "DataBase";
     public static final String TABLE_INVENTORY = "inventory";
     public static final String INVENTORY_ID = "_id";
