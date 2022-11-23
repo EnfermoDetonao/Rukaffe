@@ -15,7 +15,7 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.ViewHolderDatos> {
 
     List<Inventory> listaDatos;
 
-    public Adaptador(String listaDatos) { this.listaDatos = listaDatos; }
+    public Adaptador(List<Inventory> listaDatos) { this.listaDatos = listaDatos; }
 
     @NonNull
     @Override
@@ -52,17 +52,6 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.ViewHolderDatos> {
         public void asignarDatos(Inventory u) {
             name.setText(u.getName());
             cantidad.setText(u.getCantidad());
-
-            //PREGUNTAR: ES NECESARIO EN MI CASO ESTA PARTE? QUÉ HACE
-
-       /*     if(u.getActivo()==0)
-                activo.setChecked(false);
-            else
-                activo.setChecked(true);
-            //activo.setText();
-            edad.setText(u.getEdad());*/
-
-
         }
     }
 }

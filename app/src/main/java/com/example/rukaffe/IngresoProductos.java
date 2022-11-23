@@ -1,16 +1,27 @@
 package com.example.rukaffe;
 
+import static com.example.rukaffe.Util.MyApp.context;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.example.rukaffe.Database.DatabaseHelper;
 import com.example.rukaffe.Database.DatabaseQueryClass;
 import com.example.rukaffe.Models.Inventory;
+import com.example.rukaffe.Util.Constants;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class IngresoProductos extends AppCompatActivity {
 
@@ -18,7 +29,7 @@ public class IngresoProductos extends AppCompatActivity {
     private EditText cantidad;
     private EditText date;
     private Button agregarBtn;
-    String listaDatos;//datos con los que se construirá el reciclador
+    List<Inventory> listaDatos;//datos con los que se construirá el reciclador
     RecyclerView reciclador;
     ArrayList<String> listaDatos2;
 
@@ -50,24 +61,40 @@ public class IngresoProductos extends AppCompatActivity {
         });
     }
 
-    public void obtenerListaInventario(){
+    public List<Inventory> obtenerListaInventario(){
+
         DatabaseQueryClass dbQeryInventario1 = new DatabaseQueryClass(getBaseContext());
+        DatabaseHelper databaseHelper = DatabaseHelper.getInstance(context);
+        SQLiteDatabase sqLiteDatabase = databaseHelper.getReadableDatabase();
+        Cursor cursor=null;
+        try{
+            cursor=  sqLiteDatabase.query(Constants.TABLE_INVENTORY,null,null,null,null,null,null,null);
+            if(cursor!=null)
+                if(cursor.moveToFirst()){
+                    List<Inventory> listaObtenida= new ArrayList<>();
+                    do{
+                        Inventory productoObtenido=new Inventory();
+                        //obtengo valores de la BD
+                        String name = cursor.getString(cursor.getColumnIndex(Constants.INVENTORY_NAME));
+                        int cantidad = cursor.getInt(cursor.getColumnIndex(Constants.INVENTORY_CANTIDAD));
+                        String fecha = cursor.getString(cursor.getColumnIndex(Constants.INVENTORY_FECHA));
+                        //se los asigno al usuario
+                        productoObtenido.setName(name);
+                        productoObtenido.setCantidad(cantidad);
+                        productoObtenido.setFecha(fecha);
+                        //agrego el usuario a la lista
+                        listaObtenida.add(productoObtenido);
 
-        //listaDatos= new ArrayList<Usuario>();
-        listaDatos=dbQeryInventario1.insertarProducto();
-        Adaptador adapter = new Adaptador(listaDatos);
-
-
-        //obtener el reciclador
-        reciclador= findViewById(R.id.recyclerInventario);
-        //reciclador.setLayoutManager(new GridLayoutManager(this,1));
-        reciclador.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        reciclador.setAdapter(adapter);
+                    }while(cursor.moveToNext());
+                    return listaObtenida;
+                }
+        }
+        catch(SQLiteException e){
+            Toast.makeText(context, "Error al listar: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }finally {
+            sqLiteDatabase.close();
+        }
+        return new ArrayList<Inventory>();
     }
 
-
-    public void onClickRegresoaMain(View view) {
-        Intent i = new Intent(IngresoProductos.this, Inventario.class);
-        startActivity(i);
-    }
 }
